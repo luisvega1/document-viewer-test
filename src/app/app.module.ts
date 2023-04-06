@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { PageComponentComponent } from './components/page-component/page-component.component';
 import { AnnotationComponentComponent } from './components/annotation-component/annotation-component.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ColorSelectorComponent } from './components/color-selector/color-selector.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageComponentComponent,
-    AnnotationComponentComponent
+    AnnotationComponentComponent,
+    ColorSelectorComponent
   ],
   imports: [
     BrowserModule,

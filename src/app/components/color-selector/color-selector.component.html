@@ -1,0 +1,19 @@
+<section class="color-selector">
+  <div class="options">
+    <span
+      *ngFor="let color of colors"
+      (click)="change_color(color.code)"
+      class="color"
+      [ngClass]="{ active: selected_color === color.code }"
+      [ngStyle]="{ backgroundColor: color.code }"
+    ></span>
+  </div>
+  <input
+    type="range"
+    draggable="true"
+    (dragstart)="drag_event($event)"
+    (change)="change_opacity($event)"
+    min="1"
+    max="100"
+  />
+</section>

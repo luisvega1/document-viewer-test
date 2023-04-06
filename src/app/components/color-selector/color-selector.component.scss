@@ -1,0 +1,23 @@
+.color-selector {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  background-color: #fff;
+  border-radius: 8px;
+  .active {
+    border-color: #1a5f7a !important;
+  }
+  .options {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    .color {
+      margin: 0 3px;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      cursor: pointer;
+    }
+  }
+}

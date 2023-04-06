@@ -48,4 +48,10 @@
       <span class="material-symbols-outlined"> close </span>
     </button>
   </div>
+  <app-color-selector
+    *ngIf="edit_mode"
+    class="color-selector"
+    [selected_color]="annotation.color"
+    (color_change_event)="send_color($event)"
+  ></app-color-selector>
 </div>

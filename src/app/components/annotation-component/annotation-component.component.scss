@@ -4,6 +4,9 @@
   p {
     margin: 0 !important;
   }
+  img {
+    margin-bottom: 15px;
+  }
   &:hover {
     .actions {
       opacity: 1;
@@ -16,9 +19,11 @@
       border: none;
       border-radius: 8px;
       padding: 8px;
+      max-width: 100%;
+      max-height: 250px;
     }
     .buttons {
-      margin-top: 10px;
+      margin-top: 15px;
       display: flex;
       flex-direction: row;
       justify-content: end;
@@ -31,6 +36,9 @@
         color: #fff;
         border-radius: 50px;
         cursor: pointer;
+      }
+      .image-input {
+        margin-right: 5px;
       }
       #image-input {
         display: none;
@@ -65,5 +73,11 @@
   .resp-image {
     max-width: 100%;
     height: auto;
+  }
+  .color-selector {
+    position: absolute;
+    top: 0px;
+    right: calc(-100% + -20px);
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
 }

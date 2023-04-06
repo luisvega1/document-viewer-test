@@ -85,7 +85,8 @@ export class AppComponent implements AfterViewInit, OnInit {
       y: 150,
       content: 'Write your annotation.',
       color: '#FFFF00',
-      width: 300,
+      opacity: 1,
+      width: 200,
       height: 'auto'
     }
     this.annotations.push(annotation);
@@ -125,6 +126,16 @@ export class AppComponent implements AfterViewInit, OnInit {
         return;
       }
     });
+  }
+
+  resize_event(event: any) {
+    console.log(event);
+  }
+
+  set_new_color(annotation: any): void {
+    //GETS NEW ANNOTATION WITH NEW COLOR AND UPDATES IT
+    const annotation_index = this.annotations.findIndex((a: any) => a.id === annotation.id);
+    this.annotations[annotation_index] = annotation;
   }
 
 }
