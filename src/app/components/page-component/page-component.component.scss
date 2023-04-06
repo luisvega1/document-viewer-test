@@ -1,0 +1,11 @@
+.page-container {
+  padding: 35px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  .page {
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.29);
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.29);
+    -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.29);
+  }
+}

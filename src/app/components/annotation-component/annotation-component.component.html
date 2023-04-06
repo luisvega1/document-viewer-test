@@ -1,0 +1,51 @@
+<div class="annotation">
+  <img
+    *ngIf="annotation.image && !edit_mode"
+    [src]="annotation.image"
+    class="resp-image"
+    alt="annotation image"
+  />
+  <p *ngIf="!edit_mode">{{ annotation.content }}</p>
+  <form
+    *ngIf="edit_mode"
+    class="annotation-form"
+    [formGroup]="annotationForm"
+    (submit)="save_edit()"
+  >
+    <img
+      *ngIf="annotation.image || image_preview"
+      [src]="image_preview ? image_preview : annotation.image"
+      alt="annotation image"
+      class="resp-image"
+    />
+    <label
+      for="annotation_content"
+      hidden
+      aria-label="Annotation input"
+    ></label>
+    <textarea
+      class="input"
+      id="annotation_content"
+      type="text"
+      formControlName="content"
+    ></textarea>
+    <div class="buttons">
+      <input
+        type="file"
+        id="image-input"
+        accept="image/png, image/gif, image/jpeg"
+        (change)="handle_image($event)"
+      />
+      <label for="image-input" class="image-input">Add image</label>
+      <button class="save" type="submit">Save</button>
+    </div>
+  </form>
+  <div class="actions">
+    <button class="edit" (click)="enter_edit_mode()">
+      <span class="material-symbols-outlined"> edit </span>
+    </button>
+    <button class="delete" (click)="delete_annotation()">
+      <span class="material-symbols-outlined"> close </span>
+    </button>
+  </div>
+</div>
