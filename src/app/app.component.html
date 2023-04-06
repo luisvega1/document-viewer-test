@@ -32,19 +32,14 @@
     [id]="annotation.id"
     [ngStyle]="{
       position: 'absolute',
-      backgroundColor: annotation.color,
       top: annotation.y + 'px',
-      left: annotation.x + 'px',
-      borderRadius: '10px',
-      width: annotation.width + 'px',
-      height: annotation.height,
-      maxWidth: annotation.width + 'px',
-      boxShadow: '0px 10px 15px -3px rgba(0,0,0,0.1)'
+      left: annotation.x + 'px'
     }"
     [annotation]="annotation"
     (delete_annotation_event)="delete_annotation($event)"
     (save_annotation_event)="save_annotation_edit($event)"
-    (send_color_event)="set_new_color($event)"
+    (send_color_event)="update_annotation($event)"
+    (send_opacity_event)="update_annotation($event)"
   >
   </app-annotation-component>
 </div>

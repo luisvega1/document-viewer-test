@@ -12,6 +12,7 @@ export class AnnotationComponentComponent implements OnInit {
   @Output() delete_annotation_event = new EventEmitter<any>();
   @Output() save_annotation_event = new EventEmitter<any>();
   @Output() send_color_event = new EventEmitter<string>();
+  @Output() send_opacity_event = new EventEmitter<number>();
 
   public image_preview!: string;
   public edit_mode: boolean = false;
@@ -58,10 +59,16 @@ export class AnnotationComponentComponent implements OnInit {
     }
   }
 
-  send_color(new_color: any): void {
+  send_color(new_color: string): void {
     this.annotation.color = new_color;
     //SENDS ANNOTATION WITH NEW COLOR
     this.send_color_event.emit(this.annotation);
+  }
+
+  send_opacity(new_opacity: number): void {
+    //UPDATES ANNOTATIONS OPACITY AND SENDS IT
+    this.annotation.opacity = new_opacity
+    this.send_opacity_event.emit(this.annotation);
   }
 
 }

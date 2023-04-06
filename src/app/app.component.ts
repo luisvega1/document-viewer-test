@@ -63,18 +63,17 @@ export class AppComponent implements AfterViewInit, OnInit {
     this.drag_start_pos_x = e.layerX;
   }
 
-  drag_stop(e: any, annotation_id: any) {
+  drag_stop(e: any, annotation_id: string) {
     let { pageX, pageY } = e;
     let el: any = this.document.getElementById(`${annotation_id}`);
     let client = el.getBoundingClientRect();
 
-    this.annotations.forEach((a: any) => {
-      if (a.id === annotation_id) {
-        a.x = (pageX - this.drag_start_pos_x) - this.drag_start_pos_x;
-        a.y = (pageY - this.drag_start_pos_y) - (this.drag_start_pos_y - client.height);
-      }
-      this.set_annotation(a);
-    })
+    const annotationIndex = this.annotations.findIndex((a: any) => a.id === annotation_id);
+    this.annotations[annotationIndex] = {
+      ...this.annotations[annotationIndex],
+      x: (pageX - this.drag_start_pos_x) - this.drag_start_pos_x,
+      y: (pageY - this.drag_start_pos_y) - (this.drag_start_pos_y - client.height)
+    }
   }
 
   add_annotation(): void {
@@ -92,6 +91,7 @@ export class AppComponent implements AfterViewInit, OnInit {
     this.annotations.push(annotation);
   }
 
+  //TODO: VER LA UTILIDAD DE ESTA FUNCION
   set_annotations(): void {
     this.annotations.forEach((annotation: any) => {
       let el: any = this.document.getElementById(`${annotation.id}`);
@@ -102,13 +102,6 @@ export class AppComponent implements AfterViewInit, OnInit {
       el.style.maxWidth = `${annotation.width}px`;
       el.style.height = `${annotation.height}px`;
     })
-  }
-
-  set_annotation(annotation: any): void {
-    let el: any = this.document.getElementById(`${annotation.id}`);
-    el.style.backgroundColor = annotation.color;
-    el.style.top = `${annotation.y}px`;
-    el.style.left = `${annotation.x}px`;
   }
 
   save_page(): void {
@@ -132,8 +125,9 @@ export class AppComponent implements AfterViewInit, OnInit {
     console.log(event);
   }
 
-  set_new_color(annotation: any): void {
-    //GETS NEW ANNOTATION WITH NEW COLOR AND UPDATES IT
+  update_annotation(annotation: any): void {
+    console.log(annotation);
+    //GETS NEW ANNOTATION WITH UPDATED VALUES AND SETS NEW VALUES
     const annotation_index = this.annotations.findIndex((a: any) => a.id === annotation.id);
     this.annotations[annotation_index] = annotation;
   }

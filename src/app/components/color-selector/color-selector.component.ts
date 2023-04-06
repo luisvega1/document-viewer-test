@@ -8,28 +8,25 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class ColorSelectorComponent implements OnInit {
 
   @Input() selected_color: string = '';
+  @Input() selected_opacity!: number;
   @Output() color_change_event = new EventEmitter<any>();
+  @Output() opacity_change_event = new EventEmitter<any>();
 
   public colors: any = [
     {
-      code: '#f58a07',
-      opacity: 1
+      code: '#f58a07'
     },
     {
-      code: '#29d606',
-      opacity: 1
+      code: '#29d606'
     },
     {
-      code: '#FFFF00',
-      opacity: 1
+      code: '#FFFF00'
     },
     {
-      code: '#2462f2',
-      opacity: 1
+      code: '#2462f2'
     },
     {
-      code: '#ba43fa',
-      opacity: 1
+      code: '#ba43fa'
     }
   ]
 
@@ -44,7 +41,9 @@ export class ColorSelectorComponent implements OnInit {
   }
 
   change_opacity(event: any): void {
-    console.log(event);
+    //SENDS NEW OPACITY TO ANNOTATION
+    const new_opacity = Number(event.target.value) / 100;
+    this.opacity_change_event.emit(new_opacity);
   }
 
   drag_event(event: any): void {

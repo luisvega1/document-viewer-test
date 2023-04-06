@@ -13,7 +13,8 @@
     draggable="true"
     (dragstart)="drag_event($event)"
     (change)="change_opacity($event)"
-    min="1"
+    min="10"
     max="100"
+    [value]="selected_opacity * 100"
   />
 </section>
