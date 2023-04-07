@@ -1,4 +1,5 @@
 # Document Viewer App
+## :globe_with_meridians: [LIVE DEMO](https://luisvega1.github.io/document-viewer-test/) :globe_with_meridians:
 
 This project is a document viewer where you can add annotations to the document pages, edit the annotations, add images and customize them with colors and opacity.
 
