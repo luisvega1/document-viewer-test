@@ -99,7 +99,7 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   //LOAD ANNOTATIONS OF A PAGE IF THE HAS ANNOTATIONS
   set_annotations(): void {
-    const saved_annotations: any = JSON.parse(localStorage.getItem("annotations") || '');
+    const saved_annotations: any = localStorage.getItem("annotations") ? JSON.parse(localStorage.getItem("annotations") || '') : [];
     this.annotations = [];
     this.annotations = saved_annotations.filter((a: IAnnotation) => a.page === this.c_page_num);
   }
