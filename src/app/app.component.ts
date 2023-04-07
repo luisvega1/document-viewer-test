@@ -25,6 +25,7 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     this.getFileData();
+    this.set_annotations()
   }
 
   ngAfterViewInit(): void {
@@ -40,11 +41,13 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   next_page(): void {
-    this.c_page_num < this.total_pages && this.c_page_num++;
+    if (this.c_page_num < this.total_pages) this.c_page_num++;
+    this.set_annotations();
   }
 
   prev_page(): void {
-    this.c_page_num > 1 && this.c_page_num--;
+    if (this.c_page_num > 1) this.c_page_num--;
+    this.set_annotations();
   }
 
   //DOCUMENT ZOOM IN
@@ -59,7 +62,6 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   //EVENT THAT TRIGGERS WHEN DRAG ELEMENT STARTS
   drag_start(e: any) {
-    console.log(this.annotations);
     this.drag_start_pos_y = e.layerY;
     this.drag_start_pos_x = e.layerX;
   }
@@ -78,7 +80,6 @@ export class AppComponent implements AfterViewInit, OnInit {
     }
   }
 
-  //TO CREATE A NEW ANNOTATION
   add_annotation(): void {
     const annotation = {
       id: crypto.randomUUID(),
@@ -95,21 +96,26 @@ export class AppComponent implements AfterViewInit, OnInit {
     this.annotations.push(annotation);
   }
 
-  //TODO: VER LA UTILIDAD DE ESTA FUNCION
+  //LOAD ANNOTATIONS OF A PAGE IF THE HAS ANNOTATIONS
   set_annotations(): void {
-    this.annotations.forEach((annotation: any) => {
-      let el: any = this.document.getElementById(`${annotation.id}`);
-      el.style.backgroundColor = annotation.color;
-      el.style.top = `${annotation.y}px`;
-      el.style.left = `${annotation.x}px`;
-      el.style.width = `${annotation.width}px`;
-      el.style.maxWidth = `${annotation.width}px`;
-      el.style.height = `${annotation.height}px`;
-    })
+    const saved_annotations: any = JSON.parse(localStorage.getItem("annotations") || '');
+    this.annotations = [];
+    this.annotations = saved_annotations.filter((a: any) => a.page === this.c_page_num);
   }
 
+  //SAVE PAGE ANNOTATIONS
   save_page(): void {
-
+    let saved_annotations = localStorage.getItem("annotations") ? JSON.parse(localStorage.getItem("annotations") || '') : null;
+    if (!saved_annotations || saved_annotations.length === 0) {
+      localStorage.setItem("annotations", JSON.stringify(this.annotations));
+      return;
+    }
+    let page_annotations: any[] = this.annotations;
+    saved_annotations = saved_annotations.filter((a: any) => a.page != this.c_page_num);
+    saved_annotations = saved_annotations.concat(page_annotations);
+    localStorage.setItem("annotations", JSON.stringify(saved_annotations));
+    console.log(`Page ${this.c_page_num} annotations --> `, this.annotations);
+    this.c_page_num < this.total_pages ? this.next_page() : this.prev_page();
   }
 
   delete_annotation(annotation_id: string) {
