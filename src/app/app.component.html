@@ -18,9 +18,20 @@
         <span class="material-symbols-outlined"> save </span>
       </button>
     </div>
+    <div class="pagination">
+      <button (click)="prev_page()">
+        <span class="material-symbols-outlined"> arrow_back </span>
+      </button>
+      <div class="page-count">
+        <p>Page</p>
+        <p>{{ c_page_num }}</p>
+      </div>
+      <button (click)="next_page()">
+        <span class="material-symbols-outlined"> arrow_forward </span>
+      </button>
+    </div>
   </div>
   <app-page-component
-    dra
     [ngStyle]="{ zoom: zoom + '%' }"
     [page]="file[c_page_num - 1]"
   ></app-page-component>

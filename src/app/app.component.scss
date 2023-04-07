@@ -25,6 +25,7 @@
         font-size: 18px;
         font-weight: 500;
         margin: 0px 5px;
+        color: #002b5b;
       }
       button[class*="zoom-"] {
         box-shadow: 0px 0px 5px 3px rgba(26, 95, 122, 0.3);
@@ -42,7 +43,8 @@
       }
     }
     .add-annotation,
-    .save {
+    .save,
+    .pagination {
       margin-top: 15px;
       button {
         box-shadow: 0px 0px 5px 3px rgba(26, 95, 122, 0.3);
@@ -55,8 +57,25 @@
         border-radius: 50%;
         background: #57c5b6;
         color: #fff;
-        font-size: 26px;
+        font-size: 26px !important;
+        font-weight: 500 !important;
+      }
+    }
+    .pagination {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .page-count {
+        text-align: center;
         font-weight: 500;
+        color: #002b5b;
+        margin: 0 5px;
+      }
+      button {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
       }
     }
   }

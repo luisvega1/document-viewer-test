@@ -28,7 +28,6 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.set_annotations();
   }
 
   //GET FILE DATA FROM API
@@ -58,11 +57,14 @@ export class AppComponent implements AfterViewInit, OnInit {
     if (this.zoom > 10) this.zoom -= 10;
   }
 
+  //EVENT THAT TRIGGERS WHEN DRAG ELEMENT STARTS
   drag_start(e: any) {
+    console.log(this.annotations);
     this.drag_start_pos_y = e.layerY;
     this.drag_start_pos_x = e.layerX;
   }
 
+  //EVENT THAT TRIGGERS WHEN DRAG ELEMENT ENDS
   drag_stop(e: any, annotation_id: string) {
     let { pageX, pageY } = e;
     let el: any = this.document.getElementById(`${annotation_id}`);
@@ -76,6 +78,7 @@ export class AppComponent implements AfterViewInit, OnInit {
     }
   }
 
+  //TO CREATE A NEW ANNOTATION
   add_annotation(): void {
     const annotation = {
       id: crypto.randomUUID(),
@@ -86,7 +89,8 @@ export class AppComponent implements AfterViewInit, OnInit {
       color: '#FFFF00',
       opacity: 1,
       width: 200,
-      height: 'auto'
+      height: 'auto',
+      image: ''
     }
     this.annotations.push(annotation);
   }
@@ -113,20 +117,11 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   save_annotation_edit(annotation: any): void {
-    this.annotations.forEach((a: any) => {
-      if (a.id === annotation.id) {
-        a = annotation;
-        return;
-      }
-    });
-  }
-
-  resize_event(event: any) {
-    console.log(event);
+    const annotationIndex = this.annotations.findIndex((a: any) => a.id === annotation.id);
+    this.annotations[annotationIndex] = annotation;
   }
 
   update_annotation(annotation: any): void {
-    console.log(annotation);
     //GETS NEW ANNOTATION WITH UPDATED VALUES AND SETS NEW VALUES
     const annotation_index = this.annotations.findIndex((a: any) => a.id === annotation.id);
     this.annotations[annotation_index] = annotation;

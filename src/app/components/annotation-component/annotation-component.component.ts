@@ -29,15 +29,17 @@ export class AnnotationComponentComponent implements OnInit {
 
   enter_edit_mode(): void {
     this.edit_mode = !this.edit_mode;
-    this.annotationForm.controls['content'].setValue(this.annotation.content);
+    const { content, image } = this.annotation;
+    this.annotationForm.setValue({ content, image });
   }
 
   save_edit(): void {
     const { content, image } = this.annotationForm.value;
+
     this.annotation = {
       ...this.annotation,
       content,
-      image: this.image_preview
+      image: this.image_preview ? this.image_preview : image
     }
     this.edit_mode = !this.edit_mode;
     this.image_preview = '';
