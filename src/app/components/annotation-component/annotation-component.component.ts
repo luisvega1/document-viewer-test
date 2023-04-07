@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { IAnnotation } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-annotation-component',
@@ -8,11 +9,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class AnnotationComponentComponent implements OnInit {
 
-  @Input() annotation: any;
-  @Output() delete_annotation_event = new EventEmitter<any>();
-  @Output() save_annotation_event = new EventEmitter<any>();
-  @Output() send_color_event = new EventEmitter<string>();
-  @Output() send_opacity_event = new EventEmitter<number>();
+  @Input() annotation!: IAnnotation;
+  @Output() delete_annotation_event = new EventEmitter<string>();
+  @Output() save_annotation_event = new EventEmitter<IAnnotation>();
+  @Output() send_color_event = new EventEmitter<IAnnotation>();
+  @Output() send_opacity_event = new EventEmitter<IAnnotation>();
 
   public image_preview!: string;
   public edit_mode: boolean = false;

@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Inject, OnInit, Renderer2 } from '@angular/core';
 import { FileServiceService } from './services/file-service.service';
 import { DOCUMENT } from '@angular/common';
+import { IPage, IAnnotation } from './interfaces/interfaces';
 
 @Component({
   selector: 'app-root',
@@ -81,7 +82,7 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   add_annotation(): void {
-    const annotation = {
+    const annotation: IAnnotation = {
       id: crypto.randomUUID(),
       page: this.c_page_num,
       x: 150,
@@ -100,18 +101,18 @@ export class AppComponent implements AfterViewInit, OnInit {
   set_annotations(): void {
     const saved_annotations: any = JSON.parse(localStorage.getItem("annotations") || '');
     this.annotations = [];
-    this.annotations = saved_annotations.filter((a: any) => a.page === this.c_page_num);
+    this.annotations = saved_annotations.filter((a: IAnnotation) => a.page === this.c_page_num);
   }
 
   //SAVE PAGE ANNOTATIONS
   save_page(): void {
-    let saved_annotations = localStorage.getItem("annotations") ? JSON.parse(localStorage.getItem("annotations") || '') : null;
+    let saved_annotations: IAnnotation[] = localStorage.getItem("annotations") ? JSON.parse(localStorage.getItem("annotations") || '') : null;
     if (!saved_annotations || saved_annotations.length === 0) {
       localStorage.setItem("annotations", JSON.stringify(this.annotations));
       return;
     }
-    let page_annotations: any[] = this.annotations;
-    saved_annotations = saved_annotations.filter((a: any) => a.page != this.c_page_num);
+    let page_annotations: IAnnotation[] = this.annotations;
+    saved_annotations = saved_annotations.filter((a: IAnnotation) => a.page != this.c_page_num);
     saved_annotations = saved_annotations.concat(page_annotations);
     localStorage.setItem("annotations", JSON.stringify(saved_annotations));
     console.log(`Page ${this.c_page_num} annotations --> `, this.annotations);
@@ -119,23 +120,19 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   delete_annotation(annotation_id: string) {
-    this.annotations = this.annotations.filter((annotation: any) => annotation.id != annotation_id);
+    this.annotations = this.annotations.filter((annotation: IAnnotation) => annotation.id != annotation_id);
   }
 
-  save_annotation_edit(annotation: any): void {
-    const annotationIndex = this.annotations.findIndex((a: any) => a.id === annotation.id);
+  save_annotation_edit(annotation: IAnnotation): void {
+    const annotationIndex = this.annotations.findIndex((a: IAnnotation) => a.id === annotation.id);
     this.annotations[annotationIndex] = annotation;
   }
 
-  update_annotation(annotation: any): void {
+  update_annotation(annotation: IAnnotation): void {
     //GETS NEW ANNOTATION WITH UPDATED VALUES AND SETS NEW VALUES
-    const annotation_index = this.annotations.findIndex((a: any) => a.id === annotation.id);
+    const annotation_index = this.annotations.findIndex((a: IAnnotation) => a.id === annotation.id);
     this.annotations[annotation_index] = annotation;
   }
 
 }
 
-export interface IPage {
-  page: number;
-  file: string;
-}

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { IPage } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-page-component',
@@ -7,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PageComponentComponent implements OnInit {
 
-  @Input() page: any;
+  @Input() page!: IPage;
 
   constructor() { }
 

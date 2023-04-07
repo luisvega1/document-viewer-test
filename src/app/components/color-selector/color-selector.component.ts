@@ -9,8 +9,8 @@ export class ColorSelectorComponent implements OnInit {
 
   @Input() selected_color: string = '';
   @Input() selected_opacity!: number;
-  @Output() color_change_event = new EventEmitter<any>();
-  @Output() opacity_change_event = new EventEmitter<any>();
+  @Output() color_change_event = new EventEmitter<string>();
+  @Output() opacity_change_event = new EventEmitter<number>();
 
   public colors: any = [
     {
@@ -35,7 +35,7 @@ export class ColorSelectorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  change_color(color: any): void {
+  change_color(color: string): void {
     //SENDS COLOR TO ANNOTATION COMPONENT
     this.color_change_event.emit(color);
   }
