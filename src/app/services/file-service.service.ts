@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class FileServiceService {
 
-  private dataUrl = "./api/data.json"
+  private dataUrl = "../../api/data.json"
 
   constructor(private http: HttpClient) { }
 
